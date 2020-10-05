@@ -14,13 +14,16 @@ const google = new Scraper({
     }
 });
 
+app.get('/', function(req, res) {
+    res.send('/get/:count/:id')
+})
 
 app.get('/get/:count/:id', function(req, res) {
     (async() => {
         const results = await google.scrape(req.params.id, req.params.count);
         console.log('results', results);
 
-        res.send(results)
+        res.json(results)
     })();
 })
 
