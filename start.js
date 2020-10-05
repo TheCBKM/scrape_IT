@@ -10,6 +10,7 @@ app.use(cors())
 const google = new Scraper({
     puppeteer: {
         headless: true,
+        args: ["--no-sandbox"]
     }
 });
 
@@ -18,11 +19,8 @@ app.get('/get/:count/:id', function(req, res) {
     (async() => {
         const results = await google.scrape(req.params.id, req.params.count);
         console.log('results', results);
-        let html = ''
-        results.map(r => {
-            html += `<img src="${r.url}" width="200"></img>`
-        })
-        res.send(html)
+
+        res.send(results)
     })();
 })
 
